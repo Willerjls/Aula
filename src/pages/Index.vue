@@ -2,20 +2,33 @@
   <q-page>
     <div class="q-pa-md">
       <div class="q-gutter-md">
-        <q-input outlined v-model="produto" label="Produto" />
+        <q-input outlined v-model="codigo" label="Código" />
+      </div>
+      <div class="q-gutter-md q-pt-md">
+        <q-input outlined v-model="nome" label="Nome do Produto" />
       </div>
       <div class="q-pa-md q-gutter-sm">
-        <q-btn color="primary" icon="mail" label="Adicionar" @click="adicionar()" />
+        <q-btn
+          color="primary"
+          icon="mail"
+          label="Adicionar"
+          @click="adicionar()"
+        />
       </div>
       <div class="q-pa-md">
         <q-list bordered>
-          <q-item clickable v-ripple v-for="(item, index) in lista" :key="index">
+          <q-item
+            clickable
+            v-ripple
+            v-for="(item, index) in lista"
+            :key="item.codigo"
+          >
             <q-item-section avatar>
               <q-avatar color="primary" text-color="white">
                 {{ index }}
               </q-avatar>
             </q-item-section>
-            <q-item-section>{{ item }}</q-item-section>
+            <q-item-section>{{ item.codigo }} - {{ item.nome }}</q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -24,23 +37,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'PageIndex',
-  data () {
+  name: "PageIndex",
+  data() {
     return {
-      produto: ''
-    }
+      codigo: "",
+      nome: "",
+    };
   },
   methods: {
-    adicionar () {
-      this.lista.push(this.produto)
-      this.produto = ''
-    }
+    ...mapActions('lista', ['adicionarItem']),
+    adicionar() {
+      this.adicionarItem({ codigo: this.codigo, nome: this.nome });
+      this.codigo = "";
+      this.nome = "";
+    },
   },
   computed: {
-    ...mapGetters('lista', ['lista'])
-  }
-}
+    ...mapGetters("lista", ["lista"]),
+  },
+};
 </script>

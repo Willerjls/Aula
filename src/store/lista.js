@@ -3,11 +3,15 @@ const state = {
 }
 
 const mutations = {
-
+  adicionarItem (state, item){
+    state.lista.push(item)
+  }
 }
 
 const actions = {
-
+  adicionarItem ({ commit }, item){
+    commit('adicionarItem', item)
+  }
 }
 
 const getters = {
