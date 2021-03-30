@@ -33,6 +33,14 @@
         </q-list>
       </div>
     </div>
+    <q-btn
+    round
+    color="primary"
+    icon="add"
+    class="fixed"
+    @click="mudarTela('/contato')"
+    style="right: 18px; bottom: 18px"
+    />
   </q-page>
 </template>
 
@@ -48,12 +56,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions('lista', ['adicionarItem']),
+    ...mapActions("lista", ["adicionarItem"]),
     adicionar() {
       this.adicionarItem({ codigo: this.codigo, nome: this.nome });
       this.codigo = "";
       this.nome = "";
     },
+    mudarTela(rota){
+      this.$router.push(rota)
+    }
   },
   computed: {
     ...mapGetters("lista", ["lista"]),
